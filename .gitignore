@@ -42,7 +42,6 @@ plan.md
 docs/BACKEND.md
 
 # Claude Code internal files
-.claude/
 
 # uv lock file (reproducibility not needed for this project)
 uv.lock
