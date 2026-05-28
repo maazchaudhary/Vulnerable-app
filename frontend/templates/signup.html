@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vulnerable Web Application</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="auth-body">
+
+  <header class="page-header">
+    <span class="page-header__title">Vulnerable Web Application</span>
+          
+    <div class="page-header__logos">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="theme-icon">
+        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+      </svg>
+      <span>Light</span>
+    </button>
+      <img src="/static/images/PUCIT_Logo.png" alt="PUCIT Logo">
+      <img src="/static/images/blue-logo-scl2.png" alt="SCL Logo">
+      <img src="/static/images/excaliat-logo.png" alt="Excaliat Logo">
+    </div>
+
+  </header>
+
+  <div class="auth-split">
+
+    <div class="auth-panel">
+      <span class="auth-panel__label">Security Lab</span>
+      <h2>Create Your<br>Lab Account</h2>
+      <p>
+        Register to access the hands-on vulnerability lab.
+        Once logged in you will receive a full briefing on your
+        assessment objectives.
+      </p>
+      <ul class="auth-panel__bullets">
+        <li>Hands-on vulnerability exploitation</li>
+        <li>Real attack vectors and payloads</li>
+        <li>Code-level root cause analysis</li>
+        <li>Secure coding mitigation exercises</li>
+      </ul>
+    </div>
+
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+        <h1>Create Account</h1>
+        <p class="subtitle">Fill in the details below to register</p>
+
+        <form action="/signup" method="POST" id="signup-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Choose a username" autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="your@email.com" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Choose a password" autocomplete="new-password">
+          </div>
+
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" autocomplete="new-password">
+            <span id="pw-error" class="field-error" style="display:none;">Passwords do not match.</span>
+          </div>
+
+          <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="link-row">
+          Already have an account? <a href="/login">Log in</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      var pw  = document.getElementById('password').value;
+      var cpw = document.getElementById('confirm_password').value;
+      var err = document.getElementById('pw-error');
+      if (pw !== cpw) {
+        err.style.display = 'block';
+        e.preventDefault();
+      } else {
+        err.style.display = 'none';
+      }
+    });
+  </script>
+
+  <script>
+    (function() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = themeToggle.querySelector('span');
+
+      const sunIcon = 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z';
+      const moonIcon = 'M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z';
+
+      function setTheme(isDark) {
+        if (isDark) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          themeIcon.querySelector('path').setAttribute('d', moonIcon);
+          themeText.textContent = 'Dark';
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          themeIcon.querySelector('path').setAttribute('d', sunIcon);
+          themeText.textContent = 'Light';
+          localStorage.setItem('theme', 'light');
+        }
+      }
+
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+
+      themeToggle.addEventListener('click', function() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        setTheme(!isDark);
+      });
+    })();
+  </script>
+</body>
+</html>
