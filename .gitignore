@@ -45,3 +45,5 @@ docs/BACKEND.md
 
 # uv lock file (reproducibility not needed for this project)
 uv.lock
+
+pyproject.toml
