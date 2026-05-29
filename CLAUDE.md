@@ -68,7 +68,7 @@ Single `users` table: `id` (auto-increment), `username` (unique), `email`, `pass
 | 2 | Stored XSS | `signup.html` → dashboard | Username saved to database unescaped, reflected in `welcome_page()` |
 | 3 | Reflected XSS | `auth.py:search_user()` | Query parameter `q` directly interpolated into HTML response |
 | 4 | Session Hijacking | `main.py:25` | Hardcoded `SECRET_KEY = "super-secret-key-12345"` |
-| 5 | Weak Password Storage | `security.py:13` | `hashlib.md5()` without salt |
+| ~~5~~ | ~~Weak Password Storage~~ | ~~`security.py:13`~~ | ~~`hashlib.md5()` without salt~~ (FIXED: replaced with bcrypt) |
 | 6 | Exposed Database | `auth.py:download_db()` | No authentication check on `/download/db` endpoint |
 | 7 | No Rate Limiting | All endpoints | No middleware configured for request throttling |
 | 8 | CSRF | All forms | No CSRF token validation on any POST endpoint |

@@ -570,3 +570,27 @@ The dark mode feature demonstrates:
 - System preference detection using CSS media queries
 - Accessible UI controls with proper ARIA labels
 - Consistent feature implementation across multiple pages
+
+
+# Secure Password Hashing Feature — bcrypt
+
+## Overview
+
+The application SHALL replace insecure MD5 password hashing with bcrypt-based secure password hashing.
+
+## Requirements
+
+- The system SHALL never store plaintext passwords.
+- The system SHALL hash all new passwords using bcrypt.
+- The system SHALL use bcrypt’s built-in per-password salt generation.
+- The system SHALL verify passwords using bcrypt verification APIs during login.
+- Existing MD5 hashes SHALL be considered legacy/insecure and migrated or reset.
+- The database password field SHALL store bcrypt hash strings, not MD5 hex digests.
+
+## Verification
+
+- Register a new user.
+- Inspect the database.
+- Confirm the password value starts with a bcrypt prefix such as `$2b$`.
+- Confirm plaintext passwords are not stored.
+- Confirm login succeeds through bcrypt password verification.

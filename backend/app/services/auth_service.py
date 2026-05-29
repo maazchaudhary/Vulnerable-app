@@ -8,7 +8,7 @@ import os
 from fastapi import Form, Request
 from fastapi.responses import RedirectResponse, JSONResponse, HTMLResponse
 from app.db.session import get_db
-from app.core.security import hash_password
+from app.core.security import hash_password, verify_password
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(_HERE)))
@@ -46,10 +46,7 @@ def login(request: Request, username: str = Form(None), password: str = Form(Non
     if not username or not password:
         return JSONResponse({'error': 'Invalid credentials.'}, status_code=401)
 
-    hashed = hash_password(str(password))
-
-    query = ("SELECT * FROM users WHERE username = '"
-             + str(username) + "' AND password = '" + hashed + "'")
+    query = ("SELECT * FROM users WHERE username = '" + str(username) + "'")
     try:
         conn = get_db()
         user = conn.execute(query).fetchone()
@@ -57,7 +54,7 @@ def login(request: Request, username: str = Form(None), password: str = Form(Non
     except Exception:
         return JSONResponse({'error': 'Invalid credentials.'}, status_code=401)
 
-    if user:
+    if user and verify_password(str(password), user['password']):
         request.session['user_id'] = user['id']
         request.session['username'] = user['username']
         request.session['email'] = user['email']
