@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-python-multipart
-starlette
-jinja2
-itsdangerous
-
-bcrypt
