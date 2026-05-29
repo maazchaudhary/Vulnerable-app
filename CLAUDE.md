@@ -94,3 +94,15 @@ When working with this codebase, remember:
 - University branding (logos in frontend) supports its use in academic settings
 
 If asked to demonstrate or fix vulnerabilities, prioritize educational clarity over comprehensive hardening. The goal is understanding the vulnerability concept, not production-ready security.
+
+# Specification Hierarchy
+
+When implementing features:
+
+1. Read PRD.md for product requirements.
+2. Read SDD.md for system design constraints.
+3. Read feature specifications in `.claude/Spec/`.
+4. Follow the associated `*-plan.md` file.
+5. Keep implementation aligned with the feature specification.
+
+Feature files take precedence over implementation assumptions.
