@@ -288,103 +288,9 @@ Out of scope:
 
 ---
 
-## 6. Technical Requirements
+## 6. Security Requirements (Educational Context)
 
-### 6.1 Technology Stack
-
-**Backend**
-- **Framework**: FastAPI 0.109.0+
-- **Server**: Uvicorn 0.27.0+
-- **Language**: Python 3.9+
-- **Database**: SQLite3
-- **Session Management**: Starlette SessionMiddleware
-
-**Frontend**
-- **HTML**: HTML5
-- **CSS**: Custom CSS3 (no framework)
-- **JavaScript**: Vanilla JS
-- **Icons**: None required (text-based UI)
-
-**Development Tools**
-- **Package Manager**: pip/uv
-- **Project Config**: pyproject.toml
-- **Testing**: pytest (optional)
-
-### 6.2 Architecture
-
-```
-Vulnerable App/
-├── backend/
-│   ├── app/
-│   │   ├── main.py              # Application entry point
-│   │   ├── api/
-│   │   │   └── routes/
-│   │   │       └── auth.py      # HTTP route handlers
-│   │   ├── core/
-│   │   │   └── security.py      # Password hashing (vulnerable)
-│   │   ├── db/
-│   │   │   └── session.py       # Database management
-│   │   └── services/
-│   │       └── auth_service.py  # Business logic (vulnerable)
-│   └── pyproject.toml           # Dependencies
-│
-├── frontend/
-│   ├── templates/
-│   │   ├── login.html
-│   │   ├── signup.html
-│   │   └── dashboard.html
-│   └── static/
-│       ├── css/styles.css
-│       └── images/
-│           ├── PUCIT_Logo.png
-│           ├── blue-logo-scl2.png
-│           └── excaliat-logo.png
-│
-└── vulnerable_app.db            # SQLite database
-```
-
-### 6.3 Database Schema
-
-```sql
-CREATE TABLE users (
-    id       INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    email    TEXT,
-    password TEXT  -- MD5 hash (vulnerable)
-);
-```
-
-### 6.4 API Endpoints
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/` | Redirect to signup | No |
-| GET | `/signup` | Display signup form | No |
-| POST | `/signup` | Create user account | No |
-| GET | `/login` | Display login form | No |
-| POST | `/login` | Authenticate user | No |
-| GET | `/welcome` | Display protected dashboard | Yes |
-| GET | `/logout` | Terminate session | No |
-| GET | `/search` | Search users | No (vulnerable) |
-| GET | `/download/db` | Download database | No (vulnerable) |
-
-### 6.5 Deployment Requirements
-
-**Development Environment**
-- Python 3.9 or later
-- Git (for cloning)
-- Local filesystem access for database
-
-**Production Restrictions**
-- MUST NOT be deployed to public internet
-- MUST NOT be used on systems without explicit permission
-- MUST include clear warnings about vulnerabilities
-
----
-
-## 7. Security Requirements (Educational Context)
-
-### 7.1 Intentional Vulnerabilities
+### 6.1 Intentional Vulnerabilities
 
 The following security flaws are DELIBERATELY implemented for educational purposes:
 
@@ -397,7 +303,7 @@ The following security flaws are DELIBERATELY implemented for educational purpos
 7. **No Rate Limiting**: Unlimited authentication attempts
 8. **CSRF Vulnerability**: No token validation
 
-### 7.2 Safety Guidelines
+### 6.2 Safety Guidelines
 
 - Application intended for educational use only
 - Never deploy to production environments
@@ -405,13 +311,13 @@ The following security flaws are DELIBERATELY implemented for educational purpos
 - Follow ethical hacking guidelines
 - Obtain written authorization before testing on third-party systems
 
-### 7.3 Legal Disclaimer
+### 6.3 Legal Disclaimer
 
 This application is provided strictly for educational purposes. Unauthorized access to computer systems is illegal. Ensure you have explicit permission before testing security vulnerabilities on any system you do not own. The authors are not responsible for misuse of this project.
 
 ---
 
-## 8. Future Roadmap
+## 7. Future Roadmap
 
 ### Phase 1: Enhancements (Short-term - 3 months)
 
@@ -467,21 +373,21 @@ This application is provided strictly for educational purposes. Unauthorized acc
 
 ---
 
-## 9. Success Metrics
+## 8. Success Metrics
 
-### 9.1 Learning Effectiveness
+### 8.1 Learning Effectiveness
 
 - **Vulnerability Discovery Rate**: Students should be able to identify 6+ vulnerabilities within first 2 hours
 - **Exploitation Success**: 80% of students successfully exploit SQL injection within first hour
 - **Code Understanding**: Students can locate root cause code for 5+ vulnerabilities after completing guide
 
-### 9.2 User Satisfaction
+### 8.2 User Satisfaction
 
 - **Ease of Use**: 4+ out of 5 stars on feedback surveys
 - **Documentation Clarity**: 90% of students find EXPLOITS.md clear and helpful
 - **Relevance**: 85% of students report improved understanding of real-world vulnerabilities
 
-### 9.3 Engagement
+### 8.3 Engagement
 
 - **Session Duration**: Average lab session > 45 minutes
 - **Return Visits**: 60% of users attempt the lab more than once
@@ -489,9 +395,9 @@ This application is provided strictly for educational purposes. Unauthorized acc
 
 ---
 
-## 10. Risk Assessment
+## 9. Risk Assessment
 
-### 10.1 Technical Risks
+### 9.1 Technical Risks
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
@@ -500,14 +406,14 @@ This application is provided strictly for educational purposes. Unauthorized acc
 | Difficulty too high for beginners | Medium | High | Comprehensive documentation and hints |
 | Difficulty too low for advanced users | Low | Medium | Challenge system in roadmap |
 
-### 10.2 Legal Risks
+### 9.2 Legal Risks
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
 | Misuse for malicious activities | Low | Critical | Legal disclaimers, ethics guidelines |
 | Accidental exposure of personal data | Low | Medium | Warning about using real credentials |
 
-### 10.3 Reputational Risks
+### 9.3 Reputational Risks
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
@@ -516,16 +422,16 @@ This application is provided strictly for educational purposes. Unauthorized acc
 
 ---
 
-## 11. Dependencies
+## 10. Dependencies
 
-### 11.1 External Dependencies
+### 10.1 External Dependencies
 
 - **FastAPI** 0.109.0+: Web framework
 - **Uvicorn** 0.27.0+: ASGI server
 - **python-multipart** 0.0.6+: Form data parsing
 - **itsdangerous** 2.0.0+: Session signing
 
-### 11.2 Internal Dependencies
+### 10.2 Internal Dependencies
 
 - **Python 3.9+**: Runtime environment
 - **SQLite3**: Database engine (built into Python)
@@ -533,13 +439,13 @@ This application is provided strictly for educational purposes. Unauthorized acc
 
 ---
 
-## 12. Compliance Considerations
+## 11. Compliance Considerations
 
-### 12.1 Educational Use
+### 11.1 Educational Use
 
 This product is designed exclusively for educational purposes. Its intentional vulnerabilities should never be used for malicious activities.
 
-### 12.2 Ethical Guidelines
+### 11.2 Ethical Guidelines
 
 Users must adhere to:
 - Only testing systems they own or have explicit permission to test
@@ -547,7 +453,7 @@ Users must adhere to:
 - Respecting privacy and data protection laws
 - Using knowledge for defensive purposes
 
-### 12.3 Institutional Use
+### 11.3 Institutional Use
 
 For academic institutions using this product:
 - Ensure students understand ethical guidelines
@@ -557,16 +463,16 @@ For academic institutions using this product:
 
 ---
 
-## 13. Support and Maintenance
+## 12. Support and Maintenance
 
-### 13.1 Documentation
+### 12.1 Documentation
 
 - **README.md**: Installation and getting started guide
 - **EXPLOITS.md**: Detailed vulnerability exploitation guide
 - **Code Comments**: Inline documentation for all source files
 - **This PRD**: Complete product requirements
 
-### 13.2 Issue Reporting
+### 12.2 Issue Reporting
 
 Issues should be reported via GitHub Issues with:
 - Clear description of the problem
@@ -574,7 +480,7 @@ Issues should be reported via GitHub Issues with:
 - Expected vs. actual behavior
 - Environment details
 
-### 13.3 Contribution Guidelines
+### 12.3 Contribution Guidelines
 
 Contributions welcome for:
 - New vulnerability examples
@@ -584,7 +490,7 @@ Contributions welcome for:
 
 ---
 
-## 14. Glossary
+## 13. Glossary
 
 | Term | Definition |
 |------|------------|
@@ -600,7 +506,7 @@ Contributions welcome for:
 
 ---
 
-## 15. Appendices
+## 14. Appendices
 
 ### Appendix A: Vulnerability Severity Matrix
 

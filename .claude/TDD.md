@@ -578,6 +578,102 @@ Vulnerable-app/
 
 ---
 
+
+
+## 11. Technical Requirements
+
+### 11.1 Technology Stack
+
+**Backend**
+- **Framework**: FastAPI 0.109.0+
+- **Server**: Uvicorn 0.27.0+
+- **Language**: Python 3.9+
+- **Database**: SQLite3
+- **Session Management**: Starlette SessionMiddleware
+
+**Frontend**
+- **HTML**: HTML5
+- **CSS**: Custom CSS3 (no framework)
+- **JavaScript**: Vanilla JS
+- **Icons**: None required (text-based UI)
+
+**Development Tools**
+- **Package Manager**: pip/uv
+- **Project Config**: pyproject.toml
+- **Testing**: pytest (optional)
+
+### 11.2 Architecture
+
+```
+Vulnerable App/
+├── backend/
+│   ├── app/
+│   │   ├── main.py              # Application entry point
+│   │   ├── api/
+│   │   │   └── routes/
+│   │   │       └── auth.py      # HTTP route handlers
+│   │   ├── core/
+│   │   │   └── security.py      # Password hashing (vulnerable)
+│   │   ├── db/
+│   │   │   └── session.py       # Database management
+│   │   └── services/
+│   │       └── auth_service.py  # Business logic (vulnerable)
+│   └── pyproject.toml           # Dependencies
+│
+├── frontend/
+│   ├── templates/
+│   │   ├── login.html
+│   │   ├── signup.html
+│   │   └── dashboard.html
+│   └── static/
+│       ├── css/styles.css
+│       └── images/
+│           ├── PUCIT_Logo.png
+│           ├── blue-logo-scl2.png
+│           └── excaliat-logo.png
+│
+└── vulnerable_app.db            # SQLite database
+```
+
+### 11.3 Database Schema
+
+```sql
+CREATE TABLE users (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    email    TEXT,
+    password TEXT  -- MD5 hash (vulnerable)
+);
+```
+
+### 11.4 API Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/` | Redirect to signup | No |
+| GET | `/signup` | Display signup form | No |
+| POST | `/signup` | Create user account | No |
+| GET | `/login` | Display login form | No |
+| POST | `/login` | Authenticate user | No |
+| GET | `/welcome` | Display protected dashboard | Yes |
+| GET | `/logout` | Terminate session | No |
+| GET | `/search` | Search users | No (vulnerable) |
+| GET | `/download/db` | Download database | No (vulnerable) |
+
+### 11.5 Deployment Requirements
+
+**Development Environment**
+- Python 3.9 or later
+- Git (for cloning)
+- Local filesystem access for database
+
+**Production Restrictions**
+- MUST NOT be deployed to public internet
+- MUST NOT be used on systems without explicit permission
+- MUST include clear warnings about vulnerabilities
+
+```
+
 **Document Status:** Complete
 **Next Review Date:** Upon next major version release
 **Approval:** Educational use only - not for production deployment
